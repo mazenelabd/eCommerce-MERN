@@ -4,6 +4,8 @@ import colors from 'colors'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+
 dotenv.config()
 
 const app = express()
@@ -14,6 +16,9 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(json({ limit: '30mb', extended: true }))
 app.use(urlencoded({ limit: '30mb', extended: true }))
+
+app.use(notFound)
+app.use(errorHandler)
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) =>
