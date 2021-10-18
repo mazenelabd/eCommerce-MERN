@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
-import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(json({ limit: '30mb', extended: true }))
 app.use(urlencoded({ limit: '30mb', extended: true }))
 
-app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) =>
