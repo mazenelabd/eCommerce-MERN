@@ -15,9 +15,7 @@ const getAllCategories = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createCategory = asyncHandler(async (req, res) => {
   const { name } = req.body
-  const category = new Category({
-    name,
-  })
+  const category = new Category({ name })
 
   const createdCategory = await category.save()
   res.status(201).json(createdCategory)
