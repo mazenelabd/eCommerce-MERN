@@ -13,9 +13,16 @@ const PasswordInput = ({
   setPassword,
   handleClickShowPassword,
   value,
+  error,
 }) => {
   return (
-    <FormControl variant='outlined' sx={{ mb: 2 }} fullWidth>
+    <FormControl
+      variant='outlined'
+      sx={{ mb: 2 }}
+      fullWidth
+      error={error}
+      required
+    >
       <InputLabel htmlFor='outlined-adornment-password'>{value}</InputLabel>
       <OutlinedInput
         id='outlined-adornment-password'

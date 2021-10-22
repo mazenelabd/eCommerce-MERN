@@ -13,11 +13,14 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Divider from '@mui/material/Divider'
 import SearchIcon from '@mui/icons-material/Search'
 import AccountCircle from '@mui/icons-material/AccountCircle'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import MoreIcon from '@mui/icons-material/MoreVert'
 import Logout from '@mui/icons-material/Logout'
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../actions/userActions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,6 +73,16 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
 
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const logoutHandler = () => {
+    handleMenuClose()
+    dispatch(logout())
+  }
+
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
@@ -90,6 +103,66 @@ const Header = () => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget)
   }
+
+  const menuItems = userInfo ? (
+    <Box>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon
+          aria-label='account of current user'
+          aria-controls='primary-search-account-menu'
+          aria-haspopup='true'
+        >
+          <AccountCircle />
+        </ListItemIcon>
+        Profile
+      </MenuItem>
+      <Divider />
+      <MenuItem onClick={logoutHandler}>
+        <ListItemIcon aria-label='logout'>
+          <Logout fontSize='small' />
+        </ListItemIcon>
+        Logout
+      </MenuItem>
+    </Box>
+  ) : (
+    <Box>
+      <Link
+        underline='none'
+        component={RouterLink}
+        to='/login'
+        sx={{ color: 'inherit' }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon
+            aria-label='login link'
+            aria-controls='primary-search-account-menu'
+            aria-haspopup='true'
+          >
+            <AccountCircle />
+          </ListItemIcon>
+          Login
+        </MenuItem>
+      </Link>
+      <Divider />
+      <Link
+        underline='none'
+        component={RouterLink}
+        to='/register'
+        sx={{ color: 'inherit' }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon
+            aria-label='register link'
+            aria-controls='primary-search-account-menu'
+            aria-haspopup='true'
+          >
+            <PersonAddIcon />
+          </ListItemIcon>
+          Register
+        </MenuItem>
+      </Link>
+    </Box>
+  )
 
   const menuId = 'primary-search-account-menu'
   const renderMenu = (
@@ -128,23 +201,7 @@ const Header = () => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <ListItemIcon
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-        >
-          <AccountCircle />
-        </ListItemIcon>
-        Profile
-      </MenuItem>
-      <Divider />
-      <MenuItem onClick={handleMenuClose}>
-        <ListItemIcon aria-label='logout'>
-          <Logout fontSize='small' />
-        </ListItemIcon>
-        Logout
-      </MenuItem>
+      {menuItems}
     </Menu>
   )
 
@@ -170,7 +227,7 @@ const Header = () => {
             display: 'block',
             position: 'absolute',
             top: 0,
-            right: 14,
+            right: 17,
             width: 10,
             height: 10,
             bgcolor: 'background.paper',
@@ -196,16 +253,7 @@ const Header = () => {
         </ListItemIcon>
         Cart
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <ListItemIcon
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-        >
-          <AccountCircle />
-        </ListItemIcon>
-        Profile
-      </MenuItem>
+      {menuItems}
     </Menu>
   )
 
