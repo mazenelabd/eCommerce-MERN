@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
@@ -8,6 +8,10 @@ import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import PasswordInput from '../components/PasswordInput'
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '../actions/userActions'
+import Loader from '../components/Loader'
+import Alerts from '../components/Alerts'
 
 const theme = createTheme({
   palette: {
@@ -17,12 +21,26 @@ const theme = createTheme({
   },
 })
 
-const Register = () => {
+const Register = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [message, setMessage] = useState(null)
+
+  const dispatch = useDispatch()
+
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error, userInfo } = userRegister
+
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -30,6 +48,12 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match')
+    } else {
+      dispatch(register(name, email, password))
+      setMessage('')
+    }
   }
 
   return (
@@ -48,6 +72,7 @@ const Register = () => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           Register
         </Typography>
+        {loading && <Loader loading={loading} />}
         <Box component='form' onSubmit={handleSubmit}>
           <TextField
             id='outlined-name-input'
@@ -58,6 +83,7 @@ const Register = () => {
             sx={{ my: 2 }}
             fullWidth
             autoFocus
+            required
           />
 
           <TextField
@@ -69,6 +95,7 @@ const Register = () => {
             autoComplete='current-password'
             sx={{ mb: 2 }}
             fullWidth
+            required
           />
 
           <PasswordInput
@@ -86,6 +113,8 @@ const Register = () => {
             handleClickShowPassword={handleClickShowPassword}
             value='Confirm Password'
           />
+          {message && <Alerts severity='error' message={message} />}
+          {error && <Alerts severity='error' message={error} />}
 
           <Button
             variant='contained'
@@ -105,7 +134,7 @@ const Register = () => {
             variant='body1'
             underline='none'
             component={RouterLink}
-            to='/login'
+            to={redirect ? `/login?redirect=${redirect}` : '/login'}
             sx={{ fontWeight: 'bold' }}
           >
             Login
