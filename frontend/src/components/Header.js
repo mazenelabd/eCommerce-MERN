@@ -98,12 +98,13 @@ const Header = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
       onClick={handleMenuClose}
+      keepMounted
       PaperProps={{
         elevation: 0,
         sx: {
           overflow: 'visible',
           filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-          mt: 1.5,
+          mt: { xs: 10.5, sm: 7.5 },
           '& .css-i4bv87-MuiSvgIcon-root': {
             width: 32,
             height: 32,
@@ -125,7 +126,7 @@ const Header = () => {
         },
       }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
       <MenuItem onClick={handleMenuClose}>
         <ListItemIcon
@@ -159,7 +160,7 @@ const Header = () => {
         sx: {
           overflow: 'visible',
           filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-          mt: 1.5,
+          mt: { xs: 10.5, sm: 7.5 },
           '& .css-i4bv87-MuiSvgIcon-root': {
             width: 32,
             height: 32,
@@ -179,7 +180,7 @@ const Header = () => {
         },
       }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
       <MenuItem onClick={handleMobileMenuClose}>
         <ListItemIcon aria-label='show 4 cart items'>
