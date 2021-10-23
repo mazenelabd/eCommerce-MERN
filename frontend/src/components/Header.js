@@ -212,6 +212,7 @@ const Header = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
       onClick={handleMobileMenuClose}
+      transitionDuration={0}
       PaperProps={{
         elevation: 0,
         sx: {
