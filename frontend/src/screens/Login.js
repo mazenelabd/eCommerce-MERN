@@ -68,7 +68,6 @@ const Login = ({ location, history }) => {
             value={email}
             label='Email Address'
             type='email'
-            autoComplete='current-password'
             sx={{ my: 2 }}
             fullWidth
             autoFocus

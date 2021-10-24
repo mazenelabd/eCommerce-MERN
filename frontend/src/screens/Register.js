@@ -92,7 +92,6 @@ const Register = ({ location, history }) => {
             value={email}
             label='Email Address'
             type='email'
-            autoComplete='current-password'
             sx={{ mb: 2 }}
             fullWidth
             required
