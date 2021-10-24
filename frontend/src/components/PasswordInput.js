@@ -14,6 +14,8 @@ const PasswordInput = ({
   handleClickShowPassword,
   value,
   error,
+  size,
+  required,
 }) => {
   return (
     <FormControl
@@ -21,13 +23,14 @@ const PasswordInput = ({
       sx={{ mb: 2 }}
       fullWidth
       error={error}
-      required
+      required={required === 'false' ? false : true}
     >
       <InputLabel htmlFor='outlined-adornment-password'>{value}</InputLabel>
       <OutlinedInput
         id='outlined-adornment-password'
         type={showPassword ? 'text' : 'password'}
         value={password}
+        size={size && 'small'}
         onChange={(e) => setPassword(e.target.value)}
         endAdornment={
           <InputAdornment position='end'>

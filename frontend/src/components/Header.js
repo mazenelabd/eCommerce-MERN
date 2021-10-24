@@ -106,23 +106,30 @@ const Header = () => {
 
   const menuItems = userInfo ? (
     <Box>
-      <MenuItem onClick={handleMenuClose}>
-        <ListItemIcon
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-        >
-          <AccountCircle />
-        </ListItemIcon>
-        Profile
-      </MenuItem>
-      <Divider />
-      <MenuItem onClick={logoutHandler}>
-        <ListItemIcon aria-label='logout'>
-          <Logout fontSize='small' />
-        </ListItemIcon>
-        Logout
-      </MenuItem>
+      <Link
+        underline='none'
+        component={RouterLink}
+        to='/profile'
+        sx={{ color: 'inherit' }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon
+            aria-label='account of current user'
+            aria-controls='primary-search-account-menu'
+            aria-haspopup='true'
+          >
+            <AccountCircle />
+          </ListItemIcon>
+          Profile
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={logoutHandler}>
+          <ListItemIcon aria-label='logout'>
+            <Logout fontSize='small' />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Link>
     </Box>
   ) : (
     <Box>
