@@ -4,6 +4,7 @@ import Login from './screens/Login'
 import Register from './screens/Register'
 import Profile from './screens/Profile'
 import Header from './components/Header'
+import CreateProduct from './screens/CreateProduct'
 
 export const App = () => {
   return (
@@ -12,6 +13,7 @@ export const App = () => {
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <Route path='/profile' component={Profile} />
+      <Route path='/admin/product/create' component={CreateProduct} />
     </BrowserRouter>
   )
 }
