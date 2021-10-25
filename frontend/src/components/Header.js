@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -21,6 +21,7 @@ import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
+import SideNav from './SideNav'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,8 +71,9 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   },
 }))
 const Header = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [sideNav, setSideNav] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -87,12 +89,15 @@ const Header = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget)
+    anchorEl === event.currentTarget
+      ? handleMobileMenuClose()
+      : setAnchorEl(event.currentTarget)
     setMobileMoreAnchorEl(null)
   }
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
+    setAnchorEl(null)
   }
 
   const handleMenuClose = () => {
@@ -101,7 +106,10 @@ const Header = () => {
   }
 
   const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget)
+    mobileMoreAnchorEl === event.currentTarget
+      ? handleMobileMenuClose()
+      : setMobileMoreAnchorEl(event.currentTarget)
+    setAnchorEl(null)
   }
 
   const menuItems = userInfo ? (
@@ -179,6 +187,7 @@ const Header = () => {
       onClose={handleMenuClose}
       onClick={handleMenuClose}
       keepMounted
+      anchorEl={anchorEl}
       PaperProps={{
         elevation: 0,
         sx: {
@@ -219,13 +228,14 @@ const Header = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
       onClick={handleMobileMenuClose}
+      anchorEl={mobileMoreAnchorEl}
       transitionDuration={0}
       PaperProps={{
         elevation: 0,
         sx: {
           overflow: 'visible',
           filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-          mt: { xs: 10.5, sm: 7.5 },
+          mt: { xs: 8, sm: 7.5 },
           '& .css-i4bv87-MuiSvgIcon-root': {
             width: 32,
             height: 32,
@@ -288,22 +298,31 @@ const Header = () => {
           justifyContent: 'center',
           display: { xs: 'flex', sm: 'none' },
           fontFamily: 'Playfair Display',
+          position: 'relative',
+          zIndex: 1400,
         }}
       >
         TAYLOR FANS
       </Link>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
-          position='static'
-          sx={{ backgroundColor: '#171717', color: '#f5f5f7' }}
+          sx={{
+            backgroundColor: '#171717',
+            color: '#f5f5f7',
+            position: 'relative',
+            zIndex: 1400,
+          }}
         >
           <Toolbar>
             <StyledIconButton
               size='large'
               edge='start'
               color='inherit'
-              aria-label='open category drawer'
+              aria-label='open side navbar'
               sx={{ mr: 2 }}
+              onClick={() => {
+                setSideNav(!sideNav)
+              }}
             >
               <MenuIcon />
             </StyledIconButton>
@@ -331,7 +350,12 @@ const Header = () => {
             >
               TAYLOR FANS
             </Link>
-            <Search sx={{ width: { xs: '100%', sm: '50%', md: '25%' } }}>
+            <Search
+              onClick={() => {
+                setSideNav(false)
+              }}
+              sx={{ width: { xs: '100%', sm: '50%', md: '25%' } }}
+            >
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -377,6 +401,11 @@ const Header = () => {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        <SideNav
+          sideNav={sideNav}
+          setSideNav={setSideNav}
+          isAdmin={userInfo.isAdmin}
+        />
       </Box>
     </>
   )
