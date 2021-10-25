@@ -14,6 +14,7 @@ import Button from '@mui/material/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import { createProduct } from '../actions/productActions'
+import { listCategories } from '../actions/categoryActions'
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,14 @@ const theme = createTheme({
     },
   },
 })
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: 225,
+    },
+  },
+}
 
 const CreateProduct = ({ history }) => {
   const [name, setName] = useState('')
@@ -40,16 +49,35 @@ const CreateProduct = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const categoryList = useSelector((state) => state.categoryList)
+  const {
+    loading: loadingCategories,
+    success: successCategories,
+    error: errorCategories,
+    categories,
+  } = categoryList
+
   useEffect(() => {
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
+    }
+    if (!loadingCategories && !successCategories && !errorCategories) {
+      dispatch(listCategories())
     }
     if (success) {
       history.push(`/`)
       //we will add the next line when we create the product screen
       //history.push(`/product/${product._id}`)
     }
-  }, [history, userInfo, success])
+  }, [
+    history,
+    userInfo,
+    success,
+    dispatch,
+    loadingCategories,
+    successCategories,
+    errorCategories,
+  ])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -151,7 +179,7 @@ const CreateProduct = ({ history }) => {
           {imageError && (
             <Alerts severity='error' message='should be an image' />
           )}
-          <FormControl sx={{ my: 2 }} required fullWidth>
+          <FormControl sx={{ my: 2, maxHeight: 224 }} required fullWidth>
             <InputLabel id='category-select-label'>Category</InputLabel>
             <Select
               labelId='category-select-label'
@@ -159,9 +187,20 @@ const CreateProduct = ({ history }) => {
               label='Category'
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              MenuProps={MenuProps}
             >
-              <MenuItem value={'616ec215a44a5922d18ba3e1'}>shirts</MenuItem>
-              <MenuItem value={'616ed197dd88cc8d1ba59e44'}>pants</MenuItem>
+              {loadingCategories ? (
+                <Loader />
+              ) : errorCategories ? (
+                <Alerts severity='error' message={errorCategories} />
+              ) : (
+                categories.map((categ) => (
+                  <MenuItem key={categ._id} value={categ._id}>
+                    {categ.name}
+                  </MenuItem>
+                ))
+              )}
+              :loadingCategories?
             </Select>
           </FormControl>
 
