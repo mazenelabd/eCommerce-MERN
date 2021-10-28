@@ -110,7 +110,7 @@ const Profile = ({ history }) => {
         PROFILE
       </Typography>
       {loading ? (
-        <Loader loading={loading} />
+        <Loader />
       ) : (
         <Box
           sx={{

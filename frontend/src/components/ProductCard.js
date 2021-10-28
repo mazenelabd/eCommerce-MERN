@@ -41,7 +41,7 @@ const ProductCard = ({ product }) => {
               }}
             >
               <Rating
-                name='read-only'
+                name='product-rating'
                 sx={{ ml: -1.5 }}
                 value={product.rating}
                 size='small'

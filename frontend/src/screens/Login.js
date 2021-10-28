@@ -56,7 +56,7 @@ const Login = ({ location, history }) => {
         spacing={0}
         mt={2}
       >
-        {loading && <Loader loading={loading} />}
+        {loading && <Loader />}
 
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           LOGIN
@@ -94,6 +94,7 @@ const Login = ({ location, history }) => {
               mt: 2,
             }}
             type='submit'
+            disabled={!email || !password}
           >
             LOGIN
           </Button>

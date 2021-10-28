@@ -75,7 +75,7 @@ const Register = ({ location, history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           Register
         </Typography>
-        {loading && <Loader loading={loading} />}
+        {loading && <Loader />}
         <Box component='form' onSubmit={handleSubmit}>
           <TextField
             id='outlined-name-input'
@@ -126,6 +126,7 @@ const Register = ({ location, history }) => {
               mt: 2,
             }}
             type='submit'
+            disabled={!name || !email || !password || !confirmPassword}
           >
             REGISTER
           </Button>

@@ -54,7 +54,7 @@ const Home = ({ match }) => {
         </Link>
       )}
       {loading ? (
-        <Loader loading={loading} />
+        <Loader />
       ) : error ? (
         <Alerts severity='error' message={error} />
       ) : (

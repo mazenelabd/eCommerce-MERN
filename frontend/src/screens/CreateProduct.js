@@ -65,9 +65,7 @@ const CreateProduct = ({ history }) => {
       dispatch(listCategories())
     }
     if (success) {
-      history.push(`/`)
-      //we will add the next line when we create the product screen
-      //history.push(`/product/${product._id}`)
+      history.push(`/product/${product._id}`)
     }
   }, [
     history,
@@ -111,7 +109,7 @@ const CreateProduct = ({ history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           NEW PRODUCT
         </Typography>
-        {loading && <Loader loading={loading} />}
+        {loading && <Loader />}
 
         <Box component='form' onSubmit={handleSubmit}>
           <TextField

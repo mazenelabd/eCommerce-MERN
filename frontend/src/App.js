@@ -6,6 +6,7 @@ import Profile from './screens/Profile'
 import Header from './components/Header'
 import CreateProduct from './screens/CreateProduct'
 import Home from './screens/Home'
+import Product from './screens/Product'
 
 export const App = () => {
   return (
@@ -18,6 +19,7 @@ export const App = () => {
       <Route path='/search/:keyword' component={Home} exact />
       <Route path='/page/:pageNumber' component={Home} exact />
       <Route path='/search/:keyword/page/:pageNumber' component={Home} exact />
+      <Route path='/product/:id' component={Product} />
       <Route path='/' component={Home} exact />
     </BrowserRouter>
   )
