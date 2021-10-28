@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { styled, alpha } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
-import InputBase from '@mui/material/InputBase'
 import Badge from '@mui/material/Badge'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Divider from '@mui/material/Divider'
-import SearchIcon from '@mui/icons-material/Search'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -19,47 +17,11 @@ import MoreIcon from '@mui/icons-material/MoreVert'
 import Logout from '@mui/icons-material/Logout'
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
 import SideNav from './SideNav'
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-  },
-}))
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}))
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}))
+import SearchBox from './SearchBox'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: '#c9c9c9',
@@ -70,6 +32,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     color: 'white',
   },
 }))
+
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
@@ -350,20 +313,13 @@ const Header = () => {
             >
               TAYLOR FANS
             </Link>
-            <Search
-              onClick={() => {
-                setSideNav(false)
-              }}
-              sx={{ width: { xs: '100%', sm: '50%', md: '25%' } }}
-            >
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder='Search…'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
+
+            <Route
+              render={({ history }) => (
+                <SearchBox history={history} setSideNav={setSideNav} />
+              )}
+            />
+
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <StyledIconButton
                 size='large'
@@ -404,7 +360,7 @@ const Header = () => {
         <SideNav
           sideNav={sideNav}
           setSideNav={setSideNav}
-          isAdmin={userInfo.isAdmin}
+          isAdmin={userInfo ? userInfo.isAdmin : false}
         />
       </Box>
     </>

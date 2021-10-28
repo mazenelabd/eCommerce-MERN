@@ -29,17 +29,22 @@ const SideNav = ({ sideNav, setSideNav, isAdmin }) => {
   const list = (
     <Box sx={{ width: 250, pt: { xs: 10, sm: 7 } }} role='presentation'>
       <List>
-        {categories.map((category) => (
-          <ListItem button key={category._id} sx={{ width: 250, mr: 0, pr: 0 }}>
-            <ListItemText
-              sx={{ textTransform: 'capitalize' }}
-              primary={category.name}
-            />
-            <ListItemIcon sx={{ mr: 0, pr: 0 }}>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-          </ListItem>
-        ))}
+        {categories &&
+          categories.map((category) => (
+            <ListItem
+              button
+              key={category._id}
+              sx={{ width: 250, mr: 0, pr: 0 }}
+            >
+              <ListItemText
+                sx={{ textTransform: 'capitalize' }}
+                primary={category.name}
+              />
+              <ListItemIcon sx={{ mr: 0, pr: 0 }}>
+                <ArrowForwardIosIcon />
+              </ListItemIcon>
+            </ListItem>
+          ))}
       </List>
       {isAdmin && (
         <>

@@ -34,13 +34,16 @@ const Register = ({ location, history }) => {
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo: loginInfo } = userLogin
+
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo || loginInfo) {
       history.push(redirect)
     }
-  }, [history, userInfo, redirect])
+  }, [history, userInfo, redirect, loginInfo])
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
