@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const MenuProps = {
