@@ -27,6 +27,18 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import AccountCircle from '@mui/icons-material/AccountCircle'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: 225,
+    },
+  },
+}
 
 const labels = {
   1: 'Useless',
@@ -168,13 +180,38 @@ const Product = ({ history, match }) => {
               <Typography ml={2} variant='h6' color='text.secondary'>
                 {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
               </Typography>
-              <Box ml={2} component='form'>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  my: 2,
+                }}
+              >
+                {product.countInStock > 0 && (
+                  <FormControl sx={{ ml: 2, maxHeight: 224 }} size='small'>
+                    <InputLabel id='item-select-quantity'>Qty</InputLabel>
+                    <Select
+                      labelId='item-select-quantity'
+                      id='quantity-select'
+                      label='Qty'
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                      MenuProps={MenuProps}
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <MenuItem key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
                 <Button
                   variant='contained'
-                  sx={{
-                    mt: 3,
-                  }}
-                  type='submit'
+                  type='button'
+                  onClick={addToCartHandler}
+                  disabled={product.countInStock === 0}
+                  sx={{ display: 'block', ml: 2 }}
                 >
                   Add To Cart
                 </Button>
