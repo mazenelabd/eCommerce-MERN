@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Alerts from '../components/Alerts'
 import { addToCart, removeFromCart } from '../actions/cartActions'
-import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Box from '@mui/system/Box'
@@ -90,8 +89,8 @@ const Cart = ({ match, location, history }) => {
                   alt={item.name}
                   title={item.name}
                   sx={{
-                    maxHeight: '75px',
-                    maxWidth: '75px',
+                    maxHeight: '50px',
+                    maxWidth: '50px',
                   }}
                 ></Box>
                 <Link

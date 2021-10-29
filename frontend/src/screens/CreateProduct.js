@@ -75,6 +75,7 @@ const CreateProduct = ({ history }) => {
     loadingCategories,
     successCategories,
     errorCategories,
+    product._id,
   ])
 
   const handleSubmit = (event) => {

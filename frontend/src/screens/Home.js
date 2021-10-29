@@ -34,7 +34,6 @@ const Home = ({ match }) => {
   const { loading, error, products, page, pages } = productList
 
   useEffect(() => {
-    console.log('some')
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
 
