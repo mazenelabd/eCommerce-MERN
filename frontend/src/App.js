@@ -12,6 +12,7 @@ import Shipping from './screens/Shipping'
 import PlaceOrder from './screens/PlaceOrder'
 import Order from './screens/Order'
 import MyOrders from './screens/MyOrders'
+import OrderList from './screens/OrderList'
 
 export const App = () => {
   return (
@@ -24,6 +25,7 @@ export const App = () => {
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <Route path='/profile' component={Profile} />
+      <Route path='/admin/orderlist' component={OrderList} />
       <Route path='/admin/product/create' component={CreateProduct} />
       <Route path='/product/:id' component={Product} />
       <Route path='/cart/:id?' component={Cart} />

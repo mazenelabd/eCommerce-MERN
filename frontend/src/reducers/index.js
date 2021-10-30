@@ -6,6 +6,7 @@ import {
   orderDeliverReducer,
   orderDetailsReducer,
   orderListMyReducer,
+  orderListReducer,
   orderPayReducer,
 } from './orderReducers'
 import {
@@ -38,6 +39,7 @@ const reducers = combineReducers({
   orderPay: orderPayReducer,
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
 })
 
 export default reducers
