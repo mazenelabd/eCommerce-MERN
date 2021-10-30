@@ -14,6 +14,7 @@ import Box from '@mui/system/Box'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
 
 const theme = createTheme({
   palette: {
@@ -167,7 +168,7 @@ const PlaceOrder = ({ history }) => {
         <Grid item xs={12} sm={12} md={4}>
           <Container maxWidth='sm'>
             {cart.cartItems.length !== 0 && (
-              <>
+              <Paper sx={{ p: 1 }}>
                 <Typography
                   variant='h6'
                   sx={{
@@ -244,7 +245,7 @@ const PlaceOrder = ({ history }) => {
                 >
                   Place Order
                 </Button>
-              </>
+              </Paper>
             )}
           </Container>
         </Grid>
