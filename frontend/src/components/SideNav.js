@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listCategories } from '../actions/categoryActions'
 import Loader from './Loader'
 import Alerts from './Alerts'
+import Link from '@mui/material/Link'
+import { Link as RouterLink } from 'react-router-dom'
 
 const SideNav = ({ sideNav, setSideNav, isAdmin }) => {
   const dispatch = useDispatch()
@@ -31,19 +33,26 @@ const SideNav = ({ sideNav, setSideNav, isAdmin }) => {
       <List>
         {categories &&
           categories.map((category) => (
-            <ListItem
-              button
+            <Link
               key={category._id}
-              sx={{ width: 250, mr: 0, pr: 0 }}
+              underline='none'
+              component={RouterLink}
+              to={`/category/${category._id}`}
+              sx={{ color: '#171717' }}
+              onClick={() => {
+                setSideNav(!sideNav)
+              }}
             >
-              <ListItemText
-                sx={{ textTransform: 'capitalize' }}
-                primary={category.name}
-              />
-              <ListItemIcon sx={{ mr: 0, pr: 0 }}>
-                <ArrowForwardIosIcon />
-              </ListItemIcon>
-            </ListItem>
+              <ListItem button sx={{ width: 250, mr: 0, pr: 0 }}>
+                <ListItemText
+                  sx={{ textTransform: 'capitalize' }}
+                  primary={category.name}
+                />
+                <ListItemIcon sx={{ mr: 0, pr: 0 }}>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+              </ListItem>
+            </Link>
           ))}
       </List>
       {isAdmin && (

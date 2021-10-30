@@ -30,6 +30,7 @@ export const App = () => {
       <Route path='/search/:keyword' component={Home} exact />
       <Route path='/page/:pageNumber' component={Home} exact />
       <Route path='/search/:keyword/page/:pageNumber' component={Home} exact />
+      <Route path='/category/:category' component={Home} exact />
       <Route path='/' component={Home} exact />
     </BrowserRouter>
   )

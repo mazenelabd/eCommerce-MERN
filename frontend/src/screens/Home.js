@@ -4,12 +4,14 @@ import Grid from '@mui/material/Grid'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
+import { categoryById } from '../actions/categoryActions'
 import Loader from '../components/Loader'
 import Alerts from '../components/Alerts'
 import PaginationBar from '../components/PaginationBar'
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import Typography from '@mui/material/Typography'
 
 const theme = createTheme({
   breakpoints: {
@@ -26,6 +28,7 @@ const theme = createTheme({
 
 const Home = ({ match }) => {
   const keyword = match.params.keyword
+  const category = match.params.category
   const pageNumber = match.params.pageNumber || 1
 
   const dispatch = useDispatch()
@@ -33,13 +36,23 @@ const Home = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
+  const categoryDetails = useSelector((state) => state.categoryDetails)
+  const {
+    loading: loadingCat,
+    error: errorCat,
+    category: cat,
+  } = categoryDetails
+
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
-  }, [dispatch, keyword, pageNumber])
+    if (category) {
+      dispatch(categoryById(category))
+    }
+    dispatch(listProducts(keyword, pageNumber, category))
+  }, [dispatch, keyword, pageNumber, category])
 
   return (
     <ThemeProvider theme={theme}>
-      {!keyword ? (
+      {!keyword && !category ? (
         <h1 style={{ textAlign: 'center' }}>home panel will go here</h1>
       ) : (
         <Link
@@ -52,6 +65,21 @@ const Home = ({ match }) => {
           <ArrowBackIosNewIcon sx={{ mb: -0.5 }} /> Go Back
         </Link>
       )}
+      {category && cat && (
+        <Typography
+          variant='h5'
+          sx={{
+            mt: 2,
+            textAlign: 'center',
+            fontFamily: 'Playfair Display',
+            textTransform: 'uppercase',
+          }}
+        >
+          {`${cat.name} CATEGORY`}
+        </Typography>
+      )}
+      {category && loadingCat && <Loader />}
+      {category && errorCat && <Alerts severity='error' message={errorCat} />}
       {loading ? (
         <Loader />
       ) : error ? (
