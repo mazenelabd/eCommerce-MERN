@@ -32,7 +32,6 @@ const UserEdit = ({ match, history }) => {
   const userId = match.params.id
   const [showEditName, setShowEditName] = useState(false)
   const [showEditEmail, setShowEditEmail] = useState(false)
-  const [showIsAdmin, setShowIsAdmin] = useState(false)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Alerts from '../components/Alerts'
+import Loader from '../components/Loader'
+import { listProductDetails, updateProduct } from '../actions/productActions'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import FileBase from 'react-file-base64'
 import Box from '@mui/system/Box'
 import Typography from '@mui/material/Typography'
@@ -9,13 +14,8 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import Alerts from '../components/Alerts'
 import Button from '@mui/material/Button'
-import { useDispatch, useSelector } from 'react-redux'
-import Loader from '../components/Loader'
-import { createProduct } from '../actions/productActions'
 import { listCategories } from '../actions/categoryActions'
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,22 +32,21 @@ const MenuProps = {
   },
 }
 
-const CreateProduct = ({ history }) => {
+const ProductEdit = ({ match, history }) => {
+  const productId = match.params.id
+
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
   const [image, setImage] = useState('')
-  const [countInStock, setCountInStock] = useState(0)
   const [category, setCategory] = useState('')
+  const [countInStock, setCountInStock] = useState(0)
   const [description, setDescription] = useState('')
-
   const [imageError, setImageError] = useState(false)
 
   const dispatch = useDispatch()
-  const productCreate = useSelector((state) => state.productCreate)
-  const { loading, error, success, product } = productCreate
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const productDetails = useSelector((state) => state.productDetails)
+  const { loading, error, product } = productDetails
 
   const categoryList = useSelector((state) => state.categoryList)
   const {
@@ -57,30 +56,58 @@ const CreateProduct = ({ history }) => {
     categories,
   } = categoryList
 
-  if (success) {
-    history.push(`/product/${product._id}`)
-  }
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const productUpdate = useSelector((state) => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
 
   useEffect(() => {
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
-    }
-    if (!loadingCategories && !successCategories && !errorCategories) {
+    } else if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      history.push('/admin/productlist')
+    } else if (!product.name || product._id !== productId) {
+      dispatch(listProductDetails(productId))
+    } else if (!loadingCategories && !successCategories && !errorCategories) {
       dispatch(listCategories())
+    } else {
+      setName(product.name)
+      setPrice(product.price)
+      setImage(product.image)
+      setCategory(product.category._id)
+      setCountInStock(product.countInStock)
+      setDescription(product.description)
     }
   }, [
-    history,
-    userInfo,
     dispatch,
+    history,
+    productId,
+    product,
+    successUpdate,
+    userInfo,
     loadingCategories,
     successCategories,
     errorCategories,
   ])
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     dispatch(
-      createProduct(name, price, image, category, countInStock, description)
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        category,
+        description,
+        countInStock,
+      })
     )
   }
 
@@ -92,7 +119,6 @@ const CreateProduct = ({ history }) => {
       setImageError(true)
     }
   }
-
   return (
     <ThemeProvider theme={theme}>
       <Stack
@@ -107,9 +133,10 @@ const CreateProduct = ({ history }) => {
         }}
       >
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
-          NEW PRODUCT
+          EDIT PRODUCT
         </Typography>
         {loading && <Loader />}
+        {loadingUpdate && <Loader />}
 
         <Box component='form' onSubmit={handleSubmit}>
           <TextField
@@ -224,7 +251,7 @@ const CreateProduct = ({ history }) => {
             required
           />
           {error && <Alerts severity='error' message={error} />}
-          {success && <Alerts severity='success' message='Product Created' />}
+          {errorUpdate && <Alerts severity='error' message={errorUpdate} />}
           <Button
             variant='contained'
             sx={{
@@ -235,7 +262,7 @@ const CreateProduct = ({ history }) => {
             type='submit'
             disabled={!image || !name || !category || !price || !description}
           >
-            Create
+            Update
           </Button>
         </Box>
       </Stack>
@@ -243,4 +270,4 @@ const CreateProduct = ({ history }) => {
   )
 }
 
-export default CreateProduct
+export default ProductEdit

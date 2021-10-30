@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'
 import PaginationItem from '@mui/material/PaginationItem'
 
-const PaginationBar = ({ pages, page, keyword = '' }) => {
+const PaginationBar = ({ pages, page, keyword = '', isAdmin = false }) => {
   return (
     pages > 1 && (
       <Pagination
@@ -20,9 +20,11 @@ const PaginationBar = ({ pages, page, keyword = '' }) => {
             {...item}
             component={Link}
             to={
-              keyword
-                ? `/search/${keyword}/page/${item.page}`
-                : `/page/${item.page}`
+              !isAdmin
+                ? keyword
+                  ? `/search/${keyword}/page/${item.page}`
+                  : `/page/${item.page}`
+                : `/admin/productlist/${item.page}`
             }
           />
         )}
