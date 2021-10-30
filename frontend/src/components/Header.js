@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import MoreIcon from '@mui/icons-material/MoreVert'
 import Logout from '@mui/icons-material/Logout'
 import Link from '@mui/material/Link'
@@ -93,14 +94,33 @@ const Header = () => {
           </ListItemIcon>
           Profile
         </MenuItem>
-        <Divider />
-        <MenuItem onClick={logoutHandler}>
-          <ListItemIcon aria-label='logout'>
-            <Logout fontSize='small' />
+      </Link>
+
+      <Link
+        underline='none'
+        component={RouterLink}
+        to='/myorders'
+        sx={{ color: 'inherit' }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon
+            aria-label='orders of current user'
+            aria-controls='primary-search-account-menu'
+            aria-haspopup='true'
+          >
+            <ShoppingBagIcon />
           </ListItemIcon>
-          Logout
+          Orders
         </MenuItem>
       </Link>
+
+      <Divider />
+      <MenuItem onClick={logoutHandler}>
+        <ListItemIcon aria-label='logout'>
+          <Logout fontSize='small' />
+        </ListItemIcon>
+        Logout
+      </MenuItem>
     </Box>
   ) : (
     <Box>

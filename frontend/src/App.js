@@ -11,12 +11,14 @@ import Cart from './screens/Cart'
 import Shipping from './screens/Shipping'
 import PlaceOrder from './screens/PlaceOrder'
 import Order from './screens/Order'
+import MyOrders from './screens/MyOrders'
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Route path='/order/:id' component={Order} />
+      <Route path='/myorders' component={MyOrders} />
       <Route path='/shipping' component={Shipping} />
       <Route path='/placeorder' component={PlaceOrder} />
       <Route path='/login' component={Login} />

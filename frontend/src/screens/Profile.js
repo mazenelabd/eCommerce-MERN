@@ -6,7 +6,6 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -223,7 +222,6 @@ const Profile = ({ history }) => {
               </Button>
             </nav>
           </Box>
-          <Divider />
         </Box>
       )}
     </ThemeProvider>
