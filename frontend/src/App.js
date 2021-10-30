@@ -13,6 +13,8 @@ import PlaceOrder from './screens/PlaceOrder'
 import Order from './screens/Order'
 import MyOrders from './screens/MyOrders'
 import OrderList from './screens/OrderList'
+import UserList from './screens/UserList'
+import UserEdit from './screens/UserEdit'
 
 export const App = () => {
   return (
@@ -26,6 +28,8 @@ export const App = () => {
       <Route path='/register' component={Register} />
       <Route path='/profile' component={Profile} />
       <Route path='/admin/orderlist' component={OrderList} />
+      <Route path='/admin/userlist' component={UserList} />
+      <Route path='/admin/user/:id/edit' component={UserEdit} />
       <Route path='/admin/product/create' component={CreateProduct} />
       <Route path='/product/:id' component={Product} />
       <Route path='/cart/:id?' component={Cart} />
