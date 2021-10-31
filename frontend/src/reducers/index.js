@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux'
 import { cartReducer } from './cartReducers'
-import { categoryByIdReducer, categoryListReducer } from './categoryReducers'
+import {
+  categoryByIdReducer,
+  categoryCreateReducer,
+  categoryDeleteReducer,
+  categoryListReducer,
+  categoryUpdateReducer,
+} from './categoryReducers'
 import {
   orderCreateReducer,
   orderDeliverReducer,
@@ -30,6 +36,9 @@ import {
 const reducers = combineReducers({
   categoryList: categoryListReducer,
   categoryDetails: categoryByIdReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryDelete: categoryDeleteReducer,
+  categoryUpdate: categoryUpdateReducer,
   productCreate: productCreateReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,

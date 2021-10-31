@@ -21,8 +21,8 @@ import CheckIcon from '@mui/icons-material/Check'
 
 const theme = createTheme({
   palette: {
-    neutral: {
-      main: '#64748B',
+    dark: {
+      main: '#171717',
       contrastText: '#fff',
     },
   },
@@ -138,7 +138,7 @@ const MyOrders = ({ location, history }) => {
                             display: 'block',
                           }}
                           size='small'
-                          color='neutral'
+                          color='dark'
                         >
                           Details
                         </Button>

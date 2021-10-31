@@ -17,6 +17,9 @@ import UserList from './screens/UserList'
 import UserEdit from './screens/UserEdit'
 import ProductList from './screens/ProductList'
 import ProductEdit from './screens/ProductEdit'
+import CategoryList from './screens/CategoryList'
+import CreateCategory from './screens/CreateCategory'
+import CategoryEdit from './screens/CategoryEdit'
 
 export const App = () => {
   return (
@@ -30,9 +33,11 @@ export const App = () => {
       <Route path='/register' component={Register} />
       <Route path='/profile' component={Profile} />
       <Route path='/admin/orderlist' component={OrderList} />
+      <Route path='/admin/categorylist' component={CategoryList} />
       <Route path='/admin/userlist' component={UserList} />
       <Route path='/admin/user/:id/edit' component={UserEdit} />
       <Route path='/admin/product/create' component={CreateProduct} />
+      <Route path='/admin/category/create' component={CreateCategory} />
       <Route path='/product/:id' component={Product} />
       <Route path='/admin/productlist' component={ProductList} exact />
       <Route
@@ -41,6 +46,7 @@ export const App = () => {
         exact
       />
       <Route path='/admin/product/:id/edit' component={ProductEdit} />
+      <Route path='/admin/category/:id/edit' component={CategoryEdit} />
 
       <Route path='/cart/:id?' component={Cart} />
       <Route path='/search/:keyword' component={Home} exact />

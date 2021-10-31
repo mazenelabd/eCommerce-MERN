@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Alerts from '../components/Alerts'
 import Loader from '../components/Loader'
-import PaginationBar from '../components/PaginationBar'
-import { listProducts, deleteProduct } from '../actions/productActions'
+import { listCategories, deleteCategory } from '../actions/categoryActions'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Table from '@mui/material/Table'
@@ -28,36 +27,33 @@ const theme = createTheme({
     },
   },
 })
-
-const ProductList = ({ history, match }) => {
-  const pageNumber = match.params.pageNumber || 1
-
+const CategoryList = ({ history, match }) => {
   const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const categoryList = useSelector((state) => state.categoryList)
+  const { loading, error, categories } = categoryList
 
-  const productDelete = useSelector((state) => state.productDelete)
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const categoryDelete = useSelector((state) => state.categoryDelete)
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = productDelete
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  } = categoryDelete
 
   useEffect(() => {
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
     } else {
-      dispatch(listProducts('', pageNumber))
+      dispatch(listCategories())
     }
-  }, [dispatch, history, userInfo, successDelete, pageNumber])
+  }, [dispatch, history, userInfo, successDelete])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      dispatch(deleteProduct(id))
+      dispatch(deleteCategory(id))
     }
   }
 
@@ -68,19 +64,19 @@ const ProductList = ({ history, match }) => {
           variant='h5'
           sx={{ fontFamily: 'Playfair Display', textAlign: 'center', my: 2 }}
         >
-          PRODUCTS
+          CATEGORIES
         </Typography>
         <Link
           component={RouterLink}
           underline='none'
-          to={`/admin/product/create`}
+          to={`/admin/category/create`}
         >
           <Button
             sx={{ mb: 2, ml: 'auto', display: 'flex' }}
             variant='contained'
             color='dark'
           >
-            + NEW PRODUCT
+            + NEW CATEGORY
           </Button>
         </Link>
         {loadingDelete && <Loader />}
@@ -100,71 +96,30 @@ const ProductList = ({ history, match }) => {
                     <TableCell align='right' color='text.secondary'>
                       NAME
                     </TableCell>
-                    <TableCell align='right' color='text.secondary'>
-                      PRICE
-                    </TableCell>
-                    <TableCell align='right' color='text.secondary'>
-                      CATEGORY
-                    </TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {products.map((product) => (
+                  {categories.map((category) => (
                     <TableRow
-                      key={product._id}
+                      key={category._id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell
-                        title={product._id}
-                        sx={{
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          maxWidth: {
-                            xs: '25px',
-                            sm: '25px',
-                            md: '150px',
-                            lg: '200px',
-                          },
-                        }}
-                      >
-                        {product._id}
-                      </TableCell>
-                      <TableCell
-                        align='right'
-                        sx={{
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          maxWidth: {
-                            xs: '25px',
-                            sm: '25px',
-                            md: '150px',
-                            lg: '200px',
-                          },
-                        }}
-                      >
-                        {product.name}
-                      </TableCell>
-                      <TableCell align='right'>${product.price}</TableCell>
-                      <TableCell align='right'>
-                        {product.category && product.category.name}
-                      </TableCell>
-
+                      <TableCell>{category._id}</TableCell>
+                      <TableCell align='right'>{category.name}</TableCell>
                       <TableCell align='right'>
                         <Link
                           component={RouterLink}
                           underline='none'
-                          to={`/admin/product/${product._id}/edit`}
+                          to={`/admin/category/${category._id}/edit`}
                         >
                           <Button size='small'>
                             <AppRegistrationIcon />
                           </Button>
                         </Link>
                         <Button
-                          aria-label='delete product'
-                          onClick={() => deleteHandler(product._id)}
+                          aria-label='delete category'
+                          onClick={() => deleteHandler(category._id)}
                           color='error'
                           size='small'
                         >
@@ -176,7 +131,6 @@ const ProductList = ({ history, match }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <PaginationBar pages={pages} page={page} isAdmin={true} />
           </>
         )}
       </Container>
@@ -184,4 +138,4 @@ const ProductList = ({ history, match }) => {
   )
 }
 
-export default ProductList
+export default CategoryList
