@@ -6,15 +6,14 @@ import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import MailIcon from '@mui/icons-material/Mail'
 import { useDispatch, useSelector } from 'react-redux'
 import { listCategories } from '../actions/categoryActions'
 import Loader from './Loader'
 import Alerts from './Alerts'
 import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
+import Typography from '@mui/material/Typography'
 
 const SideNav = ({ sideNav, setSideNav, isAdmin }) => {
   const dispatch = useDispatch()
@@ -59,13 +58,36 @@ const SideNav = ({ sideNav, setSideNav, isAdmin }) => {
         <>
           <Divider />
           <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+            <Typography
+              variant='h6'
+              sx={{
+                textAlign: 'center',
+                fontFamily: 'Playfair Display',
+              }}
+            >
+              Admin Panel
+            </Typography>
+            {['product', 'order', 'user', 'category'].map((text, index) => (
+              <Link
+                key={index}
+                underline='none'
+                component={RouterLink}
+                to={`/admin/${text}list`}
+                sx={{ color: '#171717' }}
+                onClick={() => {
+                  setSideNav(!sideNav)
+                }}
+              >
+                <ListItem button sx={{ width: 250, mr: 0, pr: 0 }}>
+                  <ListItemText
+                    primary={text}
+                    sx={{ textTransform: 'capitalize' }}
+                  />
+                  <ListItemIcon sx={{ mr: 0, pr: 0 }}>
+                    <ArrowForwardIosIcon />
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
             ))}
           </List>
         </>
