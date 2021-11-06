@@ -13,6 +13,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -66,6 +67,8 @@ const Shipping = ({ history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           SHIPPING DETAILS
         </Typography>
+
+        <Meta title='Shipping Details' />
 
         <FormControl component='fieldset' sx={{ mr: 'auto', mt: 4 }}>
           <FormLabel component='legend'>Payment Method</FormLabel>

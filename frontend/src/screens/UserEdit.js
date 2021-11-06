@@ -19,6 +19,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -79,6 +80,7 @@ const UserEdit = ({ match, history }) => {
       >
         <ArrowBackIosNewIcon sx={{ mb: -0.5 }} /> Go Back
       </Link>
+
       <Typography
         variant='h5'
         sx={{
@@ -89,6 +91,9 @@ const UserEdit = ({ match, history }) => {
       >
         EDIT USER
       </Typography>
+
+      <Meta title='User Edit' />
+
       {loadingUpdate && <Loader />}
       {loading ? (
         <Loader />

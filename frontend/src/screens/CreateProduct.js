@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import { createProduct } from '../actions/productActions'
 import { listCategories } from '../actions/categoryActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -58,6 +60,7 @@ const CreateProduct = ({ history }) => {
   } = categoryList
 
   if (success) {
+    dispatch({ type: PRODUCT_CREATE_RESET })
     history.push(`/product/${product._id}`)
   }
 
@@ -109,6 +112,9 @@ const CreateProduct = ({ history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           NEW PRODUCT
         </Typography>
+
+        <Meta title='Create Product' />
+
         {loading && <Loader />}
 
         <Box component='form' onSubmit={handleSubmit}>

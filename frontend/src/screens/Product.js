@@ -31,6 +31,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import Meta from '../components/Meta'
 
 const MenuProps = {
   PaperProps: {
@@ -141,6 +142,7 @@ const Product = ({ history, match }) => {
       ) : (
         <>
           <Grid container my={2} rowSpacing={2} alignItems='center'>
+            <Meta title={product.name} />
             <Grid item xs={12} sm={6}>
               <Box sx={{ justifyContent: 'center', display: 'flex' }}>
                 <Box

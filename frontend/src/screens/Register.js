@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../actions/userActions'
 import Loader from '../components/Loader'
 import Alerts from '../components/Alerts'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -75,6 +76,9 @@ const Register = ({ location, history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           Register
         </Typography>
+
+        <Meta title='Register' />
+
         {loading && <Loader />}
         <Box component='form' onSubmit={handleSubmit}>
           <TextField

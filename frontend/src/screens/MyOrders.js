@@ -18,6 +18,7 @@ import Button from '@mui/material/Button'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -54,6 +55,9 @@ const MyOrders = ({ location, history }) => {
         >
           MY ORDERS
         </Typography>
+
+        <Meta title='Orders List' />
+
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (

@@ -23,6 +23,7 @@ import Box from '@mui/system/Box'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -114,6 +115,9 @@ const Order = ({ match, history }) => {
       >
         Order {order._id}
       </Typography>
+
+      <Meta title={`Order ${order._id}`} />
+
       <Grid container>
         <Grid item xs={12} sm={12} md={8}>
           <Container maxWidth='sm'>

@@ -15,6 +15,7 @@ import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -81,6 +82,9 @@ const PlaceOrder = ({ history }) => {
       >
         PLACE ORDER
       </Typography>
+
+      <Meta title='Place Order' />
+
       <Grid container>
         <Grid item xs={12} sm={12} md={8}>
           <Container maxWidth='sm'>

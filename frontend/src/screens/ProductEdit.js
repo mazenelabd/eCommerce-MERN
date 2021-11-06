@@ -16,6 +16,7 @@ import Select from '@mui/material/Select'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import { listCategories } from '../actions/categoryActions'
+import Meta from '../components/Meta'
 const theme = createTheme({
   palette: {
     primary: {
@@ -135,6 +136,9 @@ const ProductEdit = ({ match, history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           EDIT PRODUCT
         </Typography>
+
+        <Meta title='Product Edit' />
+
         {loading && <Loader />}
         {loadingUpdate && <Loader />}
 

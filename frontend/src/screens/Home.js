@@ -12,6 +12,7 @@ import Link from '@mui/material/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import Typography from '@mui/material/Typography'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   breakpoints: {
@@ -43,6 +44,8 @@ const Home = ({ match }) => {
     category: cat,
   } = categoryDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
   useEffect(() => {
     if (category) {
       dispatch(categoryById(category))
@@ -52,8 +55,20 @@ const Home = ({ match }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Meta title='Taylor Fans' />
+
       {!keyword && !category ? (
-        <h1 style={{ textAlign: 'center' }}>home panel will go here</h1>
+        <Typography
+          variant='h5'
+          sx={{
+            textTransform: 'uppercase',
+            mt: 2,
+            textAlign: 'center',
+            fontFamily: 'Playfair Display',
+          }}
+        >
+          Hello, {userInfo ? userInfo.name : 'There'}
+        </Typography>
       ) : (
         <Link
           underline='none'

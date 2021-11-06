@@ -18,6 +18,7 @@ import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -66,6 +67,9 @@ const CategoryList = ({ history, match }) => {
         >
           CATEGORIES
         </Typography>
+
+        <Meta title='Categories List' />
+
         <Link
           component={RouterLink}
           underline='none'

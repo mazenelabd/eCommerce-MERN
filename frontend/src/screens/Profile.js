@@ -15,6 +15,7 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import Loader from '../components/Loader'
 import Alerts from '../components/Alerts'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -108,6 +109,9 @@ const Profile = ({ history }) => {
       >
         PROFILE
       </Typography>
+
+      <Meta title='Profile' />
+
       {loading ? (
         <Loader />
       ) : (

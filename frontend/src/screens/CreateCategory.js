@@ -10,6 +10,7 @@ import Loader from '../components/Loader'
 import { createCategory } from '../actions/categoryActions'
 import { CATEGORY_CREATE_RESET } from '../constants/categoryConstants'
 import Container from '@mui/material/Container'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -54,6 +55,9 @@ const CreateCategory = ({ history }) => {
         >
           NEW CATEGORY
         </Typography>
+
+        <Meta title='Create Category' />
+
         {loading && <Loader />}
 
         <Box component='form' onSubmit={handleSubmit}>

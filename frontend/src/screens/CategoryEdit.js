@@ -10,6 +10,7 @@ import Loader from '../components/Loader'
 import { updateCategory, categoryById } from '../actions/categoryActions'
 import { CATEGORY_UPDATE_RESET } from '../constants/categoryConstants'
 import Container from '@mui/material/Container'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -79,6 +80,9 @@ const CategoryEdit = ({ match, history }) => {
         >
           UPDATE CATEGORY
         </Typography>
+
+        <Meta title='Edit Category' />
+
         {loading && <Loader />}
         {loadingUpdate && <Loader />}
 

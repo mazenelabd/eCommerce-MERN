@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Meta from '../components/Meta'
 
 const MenuProps = {
   PaperProps: {
@@ -70,6 +71,8 @@ const Cart = ({ match, location, history }) => {
         >
           CART
         </Typography>
+
+        <Meta title='Cart' />
         {cartItems.length === 0 ? (
           <Alerts message='Your Cart is empty' severity='info' />
         ) : (

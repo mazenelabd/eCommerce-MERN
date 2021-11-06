@@ -19,6 +19,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
+import Meta from '../components/Meta'
 
 const UserList = ({ history }) => {
   const dispatch = useDispatch()
@@ -54,6 +55,9 @@ const UserList = ({ history }) => {
       >
         USERS
       </Typography>
+
+      <Meta title='Users List' />
+
       {loading ? (
         <Loader />
       ) : error ? (

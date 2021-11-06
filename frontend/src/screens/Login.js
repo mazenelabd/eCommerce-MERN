@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userActions'
 import Loader from '../components/Loader'
 import Alerts from '../components/Alerts'
+import Meta from '../components/Meta'
 
 const theme = createTheme({
   palette: {
@@ -61,6 +62,9 @@ const Login = ({ location, history }) => {
         <Typography variant='h5' sx={{ fontFamily: 'Playfair Display' }}>
           LOGIN
         </Typography>
+
+        <Meta title='Login' />
+
         <Box component='form' onSubmit={handleSubmit}>
           <TextField
             id='outlined-email-input'
