@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -38,11 +38,21 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
   const [sideNav, setSideNav] = useState(false)
+  const [cartLength, setCartLength] = useState(0)
 
   const dispatch = useDispatch()
 
+  const cart = useSelector((state) => state.cart)
+  const { cartItems } = cart
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  useEffect(() => {
+    if (cartItems) {
+      setCartLength(cartItems.length)
+    }
+  }, [cartItems])
 
   const logoutHandler = () => {
     handleMenuClose()
@@ -240,20 +250,27 @@ const Header = () => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-      <MenuItem onClick={handleMobileMenuClose}>
-        <ListItemIcon aria-label='show 4 cart items'>
-          <Badge
-            badgeContent={4}
-            color='error'
-            position='fixed'
-            ml='-0.5'
-            mr='1'
-          >
-            <ShoppingCartIcon />
-          </Badge>
-        </ListItemIcon>
-        Cart
-      </MenuItem>
+      <Link
+        underline='none'
+        component={RouterLink}
+        to='/cart'
+        sx={{ color: 'inherit' }}
+      >
+        <MenuItem onClick={handleMobileMenuClose}>
+          <ListItemIcon aria-label='show 4 cart items'>
+            <Badge
+              badgeContent={cartLength}
+              color='error'
+              position='fixed'
+              ml='-0.5'
+              mr='1'
+            >
+              <ShoppingCartIcon />
+            </Badge>
+          </ListItemIcon>
+          Cart
+        </MenuItem>
+      </Link>
       {menuItems}
     </Menu>
   )
@@ -341,15 +358,22 @@ const Header = () => {
             />
 
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <StyledIconButton
-                size='large'
-                aria-label='show 4 cart items'
-                color='inherit'
+              <Link
+                underline='none'
+                component={RouterLink}
+                to='/cart'
+                sx={{ color: 'inherit' }}
               >
-                <Badge badgeContent={4} color='error'>
-                  <ShoppingCartIcon />
-                </Badge>
-              </StyledIconButton>
+                <StyledIconButton
+                  size='large'
+                  aria-label='show 4 cart items'
+                  color='inherit'
+                >
+                  <Badge badgeContent={cartLength} color='error'>
+                    <ShoppingCartIcon />
+                  </Badge>
+                </StyledIconButton>
+              </Link>
               <StyledIconButton
                 size='large'
                 edge='end'
