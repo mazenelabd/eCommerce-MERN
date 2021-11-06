@@ -20,40 +20,48 @@ import ProductEdit from './screens/ProductEdit'
 import CategoryList from './screens/CategoryList'
 import CreateCategory from './screens/CreateCategory'
 import CategoryEdit from './screens/CategoryEdit'
+import Footer from './components/Footer'
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Route path='/order/:id' component={Order} />
-      <Route path='/myorders' component={MyOrders} />
-      <Route path='/shipping' component={Shipping} />
-      <Route path='/placeorder' component={PlaceOrder} />
-      <Route path='/login' component={Login} />
-      <Route path='/register' component={Register} />
-      <Route path='/profile' component={Profile} />
-      <Route path='/admin/orderlist' component={OrderList} />
-      <Route path='/admin/categorylist' component={CategoryList} />
-      <Route path='/admin/userlist' component={UserList} />
-      <Route path='/admin/user/:id/edit' component={UserEdit} />
-      <Route path='/admin/product/create' component={CreateProduct} />
-      <Route path='/admin/category/create' component={CreateCategory} />
-      <Route path='/product/:id' component={Product} />
-      <Route path='/admin/productlist' component={ProductList} exact />
-      <Route
-        path='/admin/productlist/:pageNumber'
-        component={ProductList}
-        exact
-      />
-      <Route path='/admin/product/:id/edit' component={ProductEdit} />
-      <Route path='/admin/category/:id/edit' component={CategoryEdit} />
+      <main style={{ minHeight: '81.6vh' }}>
+        <Route path='/order/:id' component={Order} />
+        <Route path='/myorders' component={MyOrders} />
+        <Route path='/shipping' component={Shipping} />
+        <Route path='/placeorder' component={PlaceOrder} />
+        <Route path='/login' component={Login} />
+        <Route path='/register' component={Register} />
+        <Route path='/profile' component={Profile} />
+        <Route path='/admin/orderlist' component={OrderList} />
+        <Route path='/admin/categorylist' component={CategoryList} />
+        <Route path='/admin/userlist' component={UserList} />
+        <Route path='/admin/user/:id/edit' component={UserEdit} />
+        <Route path='/admin/product/create' component={CreateProduct} />
+        <Route path='/admin/category/create' component={CreateCategory} />
+        <Route path='/product/:id' component={Product} />
+        <Route path='/admin/productlist' component={ProductList} exact />
+        <Route
+          path='/admin/productlist/:pageNumber'
+          component={ProductList}
+          exact
+        />
+        <Route path='/admin/product/:id/edit' component={ProductEdit} />
+        <Route path='/admin/category/:id/edit' component={CategoryEdit} />
 
-      <Route path='/cart/:id?' component={Cart} />
-      <Route path='/search/:keyword' component={Home} exact />
-      <Route path='/page/:pageNumber' component={Home} exact />
-      <Route path='/search/:keyword/page/:pageNumber' component={Home} exact />
-      <Route path='/category/:category' component={Home} exact />
-      <Route path='/' component={Home} exact />
+        <Route path='/cart/:id?' component={Cart} />
+        <Route path='/search/:keyword' component={Home} exact />
+        <Route path='/page/:pageNumber' component={Home} exact />
+        <Route
+          path='/search/:keyword/page/:pageNumber'
+          component={Home}
+          exact
+        />
+        <Route path='/category/:category' component={Home} exact />
+        <Route path='/' component={Home} exact />
+      </main>
+      <Footer />
     </BrowserRouter>
   )
 }
