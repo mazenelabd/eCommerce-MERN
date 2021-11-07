@@ -27,10 +27,18 @@ const Shipping = ({ history }) => {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
+  const [address, setAddress] = useState(
+    shippingAddress.address ? shippingAddress.address : ''
+  )
+  const [city, setCity] = useState(
+    shippingAddress.city ? shippingAddress.city : ''
+  )
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode ? shippingAddress.postalCode : ''
+  )
+  const [country, setCountry] = useState(
+    shippingAddress.country ? shippingAddress.country : ''
+  )
   const [paymentMethod, setPaymentMethod] = useState('PayPal')
 
   const dispatch = useDispatch()
@@ -132,7 +140,7 @@ const Shipping = ({ history }) => {
             sx={{
               display: 'flex',
               mx: 'auto',
-              mt: 2,
+              my: 2,
             }}
             type='submit'
             disabled={!address || !city || !postalCode || !country}
