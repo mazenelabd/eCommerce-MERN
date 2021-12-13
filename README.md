@@ -18,6 +18,7 @@
 - Checkout process (shipping, payment method, etc)
 - PayPal / credit card integration
 - JWT Authentication
+- Tested using Cypress
 
 ### Env Variables
 
